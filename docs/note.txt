@@ -1,0 +1,15 @@
+
+windows环境下：
+sudo sysctl -w vm.max_map_count=2000000
+
+sudo vi /etc/sysctl.conf
+
+文件的末尾添加如下配置：
+
+vm.max_map_count=2000000
+
+
+禁用 swap 内存
+1. 临时禁用 swap
+你可以通过以下命令临时禁用 swap 内存（重启后会恢复）：
+sudo swapoff -a

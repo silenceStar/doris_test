@@ -1,0 +1,39 @@
+networks:
+  my_bridge:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.1.0/24
+
+services:
+  doris-fe:
+    image: apache/doris:fe-2.1.7
+    container_name: doris-fe
+    networks:
+      my_bridge:
+        ipv4_address: 192.168.1.100
+    ports:
+      - "8030:8030"
+      - "9030:9030"
+    environment:
+      - FE_SERVERS=fe1:192.168.1.100:9010
+      - FE_ID=1
+    volumes:
+      - /mnt/e/Gitee/doris_test/docker/doris-fe:/doris/fe:rw  # 使用绑定挂载
+    restart: always
+
+  doris-be:
+    image: apache/doris:be-2.1.7
+    container_name: doris-be
+    networks:
+      my_bridge:
+        ipv4_address: 192.168.1.101
+    ports:
+      - "9050:9050"
+      - "8040:8040"
+    environment:
+      - FE_SERVERS=fe1:192.168.1.100:9010
+      - BE_ADDR=192.168.1.101:9050
+    volumes:
+      - /mnt/e/Gitee/doris_test/docker/doris-be:/doris/be:rw  # 使用绑定挂载
+    restart: always

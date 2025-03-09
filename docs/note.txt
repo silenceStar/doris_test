@@ -13,3 +13,11 @@ vm.max_map_count=2000000
 1. 临时禁用 swap
 你可以通过以下命令临时禁用 swap 内存（重启后会恢复）：
 sudo swapoff -a
+
+
+
+Windows 系统特有的结束符转换:
+它会在提交代码时将 CRLF 转换为 LF，并且在检出代码时将 LF 转换为 CRLF，
+确保 Windows 开发者的代码和其他平台（如 Linux/macOS）一致。
+
+git config --global core.autocrlf true
